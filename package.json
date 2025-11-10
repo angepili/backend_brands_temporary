@@ -1,0 +1,16 @@
+{
+  "name": "be_fake",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "express": "^5.1.0",
+    "faker-schema": "^2.0.0"
+  }
+}
