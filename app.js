@@ -8,12 +8,12 @@ app.use( express.json() );
 
 app.use( express.static( path.join( __dirname, 'public' )));
 
-const flyersRoutes = require('./src/routes/flyerRoutes');
-// const videotRoutes = require('./src/routes/videoRoutes');
+const brandsRoutes = require('./src/routes/brandRoutes');
+const flyersRoutes = require('./src/routes/flyersRouter')
 
 
-app.use('/api/flyers', flyersRoutes );
-// app.use('/api/videos', videotRoutes );
+app.use('/api/brand', brandsRoutes );
+app.use('/api/brand', flyersRoutes );
 
 app.listen( PORT , () => {
     console.log(`App is running on port ${PORT}`)

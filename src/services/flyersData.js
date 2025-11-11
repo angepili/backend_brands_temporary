@@ -1,61 +1,73 @@
 const { faker } = require("@faker-js/faker");
 
-const BRANDS = [
-  { id: 1, name: "Carrefour" },
-  { id: 2, name: "Ikea" },
-  { id: 3, name: "Esselunga" },
-  { id: 4, name: "Conad" },
-  { id: 5, name: "Iper" },
+const PROMO = [
+  {
+    idBrand: [
+      "3ee115ba-b0e5-43d4-b6fd-2a67c18d6302",
+      "cba91deb-99a9-4db2-b4fd-668da68d0594",
+      "d47ff2af-8274-46db-bbd7-81a594597240",
+      "17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9",
+    ],
+    name: "Sconti al 50%",
+  },
+  {
+    idBrand: ["3ee115ba-b0e5-43d4-b6fd-2a67c18d6302"],
+    name: "Offerte del mese",
+  },
+  {
+    idBrand: [
+      "3ee115ba-b0e5-43d4-b6fd-2a67c18d6302",
+      "cba91deb-99a9-4db2-b4fd-668da68d0594",
+      "d47ff2af-8274-46db-bbd7-81a594597240",
+      "17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9",
+    ],
+    name: "Promozione in omaggio",
+  },
+  {
+    idBrand: ["7e9b06d3-545a-4008-9504-31c2fa3281f9"],
+    name: "Blackfriday 2025",
+  },
+  {
+    idBrand: ["7e9b06d3-545a-4008-9504-31c2fa3281f9"],
+    name: "Fiera del bianco",
+  },
 ];
-const SUB_BRAND_TYPES = ["Express", "Ipermercati", "Mini"];
 
-const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-
-const createSlug = (text) => text.toLowerCase().replace(/\s+/g, '-');
-
-// Genera un singolo deal
-const generateDeal = () => ({
-  dealId: faker.number.int({ min: 1000000, max: 9999999 }),
-  dealName: `${faker.helpers.arrayElement(["Sconti", "Offerta", "Promozione"])} al ${faker.number.int({ min: 10, max: 90 })}%`,
-});
-
-// Genera una lista di deals
-const generateDeals = (count = randomInt(1, 6)) => 
-  Array.from({ length: count }, generateDeal);
-
-// Genera un sub-brand con i suoi deals (opzionale)
-const generateSubBrand = (brandName) => ({
-  id: faker.database.mongodbObjectId(),
-  subBrandName: `${brandName} ${faker.helpers.arrayElement(SUB_BRAND_TYPES)}`,
-  dealsList: generateDeals(),
-});
-
-// Genera un brand (con o senza subBrands)
-const generateBrand = (brandData) => {
-  const brand = {
-    id: brandData.id,
-    brand: brandData.name,
-    slug: createSlug(brandData.name),
+// Genera un flyer con dati faker
+const generateFlyer = (item) => {
+  const fromDate = faker.date.soon({ days: 1 });
+  const toDate = faker.date.soon({ days: 7, refDate: fromDate });
+  
+  return {
+    id: faker.string.uuid(),
+    name: item.name,
+    imageUrl: faker.image.url(),
+    pdfUrl: faker.internet.url() + '/flyer.pdf',
+    url: faker.internet.url(),
+    from: fromDate.toISOString().split('T')[0],
+    to: toDate.toISOString().split('T')[0],
+    priority: faker.number.int({ min: 1, max: 5 }),
   };
-
-  // 50% probabilità di avere subBrands
-  if (Math.random() > 0.5) {
-    brand.subBrands = Array.from({ length: randomInt(2, 4) }, () => generateSubBrand(brandData.name));
-  } else {
-    // Se non ha subBrands, ha direttamente una dealsList
-    brand.dealsList = generateDeals(randomInt(2, 6));
-  }
-
-  return brand;
 };
 
-// Genera tutti i flyers (lista di brands)
-const generateAllFlyers = () => BRANDS.map(generateBrand);
+const getFlyers = (storeId) => {
+  // Filtra le promo che contengono lo storeId
+  const filteredPromos = PROMO.filter((item) => item.idBrand.includes(storeId));
+  if (filteredPromos.length === 0) return [];
+
+  // Genera i flyers per le promo filtrate
+  return filteredPromos.map(generateFlyer);
+};
+
+const wrapResponse = (data) => {
+  return {
+    items: data,
+    offset: 0,
+    totalCount: data.length,
+    pageSize: 10,
+  };
+};
 
 module.exports = {
-  getAllFlyers: generateAllFlyers,
-  getFlyerById: (id) => {
-    const allFlyers = generateAllFlyers();
-    return allFlyers.find(flyer => flyer.id === parseInt(id));
-  },
+  getFlyers: (storeId) => wrapResponse(getFlyers(storeId)),
 };
