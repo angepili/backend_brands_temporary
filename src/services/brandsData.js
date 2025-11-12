@@ -6,6 +6,15 @@ const BRANDS = [
   { id: 'cba91deb-99a9-4db2-b4fd-668da68d0594', name: "Esselunga" },
   { id: 'd47ff2af-8274-46db-bbd7-81a594597240', name: "Conad" },
   { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Iper" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Bennet" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Eurospin" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "U2" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Iperal" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Auchan" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "PAM" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Famila" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Aldi" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Lidl" },
 ];
 const SUB_BRAND = [
   { id: 'bd4ee315-e2ab-4620-a8c3-ae1db7e7813d', name: "Express" },
@@ -55,16 +64,16 @@ const getSubBrands = ( brandId ) => {
   return SUB_BRAND.map( generateSubBrand(brand.name) );
 };
 
-const wrapResponse = ( data ) => {
+/* const wrapResponse = ( data ) => {
   return {
     items: data,
     offset: 0,
     totalCount: data.length,
     pageSize: 10,
   };
-};
+}; */
 
 module.exports = {
-  getBrands: () => wrapResponse( getBrands() ),
-  getSubBrands: (brandId) => wrapResponse( getSubBrands( brandId ) )
+  getBrands: () => getBrands(),
+  getSubBrands: (brandId) => getSubBrands( brandId )
 };
