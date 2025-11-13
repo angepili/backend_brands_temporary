@@ -1,4 +1,4 @@
-const { getBrands, getSubBrands } = require('./../services/brandsData.js');
+const { getBrands } = require('./../services/brandsData.js');
 
 exports.brands = (req, res) => {
     try {
@@ -24,7 +24,7 @@ exports.brands = (req, res) => {
     }
 };
 
-exports.subbrands = (req, res) => {
+/* exports.subbrands = (req, res) => {
     try {
         const subBrands = getSubBrands( req.params.id );
         
@@ -36,4 +36,4 @@ exports.subbrands = (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch sub-brands' });
     }
-};
+}; */

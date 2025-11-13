@@ -6,22 +6,23 @@ const BRANDS = [
   { id: 'cba91deb-99a9-4db2-b4fd-668da68d0594', name: "Esselunga" },
   { id: 'd47ff2af-8274-46db-bbd7-81a594597240', name: "Conad" },
   { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Iper" },
-  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Bennet" },
-  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Eurospin" },
-  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "U2" },
-  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Iperal" },
-  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Auchan" },
-  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "PAM" },
-  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Famila" },
-  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Aldi" },
-  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc9', name: "Lidl" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc8', name: "Bennet" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc7', name: "Eurospin" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc6', name: "U2" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc5', name: "Iperal" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc4', name: "Auchan" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc3', name: "PAM" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc2', name: "Famila" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc1', name: "Aldi" },
+  { id: '17cf78c9-ab44-4cb1-8eb2-dd4ad9805fc0', name: "Lidl" },
 ];
-const SUB_BRAND = [
-  { id: 'bd4ee315-e2ab-4620-a8c3-ae1db7e7813d', name: "Express" },
+
+/* const SUB_BRAND = [
+  { id: '3ee115ba-b0e5-43d4-b6fd-2a67c18d6302', name: "Express" },
   { id: '4115153e-83fb-4089-827d-83d4ce3fd8a0', name: "Ipermercati" },
   { id: 'b102b18a-3bed-4bb0-b12c-5de043ec4680', name: "Mini" },
   { id: '2df34e4c-05ef-4298-8d9c-84bc139a518c', name: "Standard" },
-];
+]; */
 
 const createSlug = (text) => text.toLowerCase().replace(/\s+/g, "-");
 
@@ -38,10 +39,10 @@ const generateDeals = (count = randomInt(1, 6)) =>
 */
 
 // Genera un sub-brand con i suoi deals (opzionale)
-const generateSubBrand = (brandName) => (item) => ({
+/* const generateSubBrand = (brandName) => (item) => ({
   id: item.id,
   name: `${brandName} ${item.name}`,
-});
+}); */
 
 // Genera un brand (con o senza subBrands)
 const generateBrand = ( item ) => {
@@ -51,18 +52,20 @@ const generateBrand = ( item ) => {
     slug: createSlug(item.name),
   };
 };
-
+ 
 // Genera tutti i flyers (lista di brands)
 const getBrands = () => BRANDS.map( generateBrand );
 
-const getSubBrands = ( brandId ) => {
-  // Trova il brand per ID
-  const brand = BRANDS.find(b => b.id === brandId);
+/* const getSubBrands = ( id ) => {
+
+  console.log( id );
+  
+  const brand = BRANDS.find(b => b.id === id);
   if (!brand) return [];
   
   // Genera i sub-brand con il nome del brand
   return SUB_BRAND.map( generateSubBrand(brand.name) );
-};
+}; */
 
 /* const wrapResponse = ( data ) => {
   return {
@@ -75,5 +78,6 @@ const getSubBrands = ( brandId ) => {
 
 module.exports = {
   getBrands: () => getBrands(),
-  getSubBrands: (brandId) => getSubBrands( brandId )
+  // getSubBrands: (brandId) => getSubBrands( brandId ),
+  BRANDS
 };
