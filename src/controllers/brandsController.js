@@ -20,20 +20,6 @@ exports.brands = (req, res) => {
         res.json( data );
         
     } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch flyers' });
+        res.status(500).json({ error: 'Failed to fetch brands' });
     }
 };
-
-/* exports.subbrands = (req, res) => {
-    try {
-        const subBrands = getSubBrands( req.params.id );
-        
-        if (!subBrands.items || subBrands.items.length === 0) {
-            return res.status(404).json({ error: 'Brand not found' });
-        }
-        
-        res.json( subBrands );
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch sub-brands' });
-    }
-}; */

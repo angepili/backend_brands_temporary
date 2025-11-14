@@ -7,7 +7,7 @@ exports.flyers = (req, res) => {
         const pageSizeNum = parseInt( pageSize, 10 );
         const offsetNum = parseInt( offset, 0 );
 
-        const flyers = getFlyers( req.params.id ) 
+        const flyers = getFlyers( req.params.promoId ) 
         const items = flyers.slice( offsetNum, offsetNum + pageSizeNum )
         const title = items[0].name;
 
